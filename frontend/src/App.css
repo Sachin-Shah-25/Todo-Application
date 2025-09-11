@@ -1,62 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 * {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  font-family: sans-serif;
-  
+
 }
 
 body {
   background-color: purple;
-overflow-y: hidden;
+  overflow-y: hidden;
 }
 
-#floating_btn{
+#floating_btn {
   width: 50px;
   height: 50px;
   position: absolute;
   right: 50px;
   bottom: 50px;
   cursor: pointer;
-  z-index:1000;
+  z-index: 1000;
   transform: rotate(0deg);
   transition: all 0.5s ease-in-out;
+  animation: anim 1s infinite alternate-reverse ease-in-out;
 
-  img{
+
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 }
-.user_auth_form{
+
+.user_auth_form {
   width: 100%;
   background-color: rgba(128, 0, 128, 0.719);
   height: 100%;
   position: absolute;
   z-index: 999;
   transform: scale(0);
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  font-family: sans-serif;
 
-  form{
-    width: 25%;
+  form {
+    width: 27%;
     margin: 0 auto;
     margin-top: 100px;
     border: 2px solid white;
     padding: 20px;
     border-radius: 10px;
     backdrop-filter: blur(30px);
-   
-    div{
+
+    div {
       width: 100%;
       margin-top: 15px;
-      input{
+
+      input {
         width: 100%;
         padding: 5px 16px;
         border-radius: 5px;
         border: none;
         border-color: purple;
       }
-      button{
+
+      button {
 
         width: 100%;
         font-weight: 600;
@@ -68,11 +75,16 @@ overflow-y: hidden;
         color: white;
         margin-top: 20px;
         border-radius: 5px;
-        
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.356);
+          transform: scale(1.02);
+        }
       }
     }
   }
- 
+
 }
 
 #main_container {
@@ -81,7 +93,6 @@ overflow-y: hidden;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  overflow: hidden;
 }
 
 .container {
@@ -96,7 +107,7 @@ overflow-y: hidden;
   position: absolute;
   bottom: 0px;
   right: 0;
-  z-index: 998;
+  z-index: 999;
   transition: all 1s ease-in-out;
   padding: 50px 30px;
   display: flex;
@@ -117,13 +128,13 @@ overflow-y: hidden;
         text-align: right;
       }
 
-     
+
       input {
         width: 50%;
         padding: 3px 12px;
       }
-      
-      
+
+
     }
 
     .update_dis {
@@ -161,37 +172,57 @@ overflow-y: hidden;
     border-radius: 5px;
     font-weight: 600;
     cursor: pointer;
+    background-color: rgb(175, 2, 2);
+    border: none;
+    color: white;
+    margin-top: 20px;
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
   }
-  button:first-child{
+
+  button:first-child {
     background-color: green;
     color: white;
     border: none;
-    margin-top: 50px;
+    margin-top: 0;
 
   }
-  button:last-child{
+
+  button:last-child {
     background-color: red;
-    color:white;
+    color: white;
     border: none;
     margin-top: 20px;
+  }
+
+  button:hover {
+    opacity: .7;
+    box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.185);
   }
 }
 
 .container_left_side {
   width: 75%;
   transition: all 1s ease-in-out;
+  overflow: hidden;
 }
 
 nav {
   width: 100%;
   height: 80px;
   border-bottom: 1px solid white;
+  max-height: 160px;
   padding: 5px 10px;
   display: flex;
   border-radius: 50px;
   background-color: white;
   margin-top: 10px;
   animation: navanim 1.5s ease-in-out;
+  position: fixed;
+  border-bottom: 1px solid black;
+  animation: anim 1s infinite alternate ease-in-out;
+  z-index: 999;
+
 
   .user_image {
     width: 80px;
@@ -199,17 +230,29 @@ nav {
     border-radius: 100%;
     border: 2px solid white;
     cursor: pointer;
+    border-bottom: 1px solid black;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 100%;
-      animation: anim 1s infinite alternate ease-in-out;
-      
+      opacity: 1;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        opacity: .8;
+
+      }
     }
+
+    #username::first-letter {
+      text-transform: capitalize;
+    }
+
+
   }
- 
+
 
   .first_task {
     width: 100%;
@@ -219,16 +262,32 @@ nav {
 
     .first_task_name {
       margin-top: 5px;
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: bold;
+      font-style: normal;
     }
 
-    
+    .first_task_dis {
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+      color: rgb(128, 128, 128);
+    }
+
+    .first_task_dis::first-letter {
+      text-transform: capitalize;
+    }
+
+
   }
 
-  
+
 
   .first_task_completed {
     margin-top: 20px;
     margin-right: 30px;
+
     button {
       padding: 8px 15px;
       background-color: purple;
@@ -238,35 +297,41 @@ nav {
       border: none;
       border-radius: 5px;
     }
-  
+
   }
 }
+
 @keyframes anim {
- 
-  0%{
-   transform: translateY(0);
+
+  0% {
+    transform: translateY(0);
   }
-  
-  100%{
-   transform: translateY(5px);
+
+  100% {
+    transform: translateY(5px);
   }
 }
+
 @keyframes navanim {
- 
-  0%{
+
+  0% {
     width: 0%;
     opacity: 0;
     overflow: hidden;
   }
-  100%{
+
+  100% {
     width: 100%;
     opacity: 1;
   }
 }
 
 .container_right_side {
-  width: 25%;
   transition: all 1s ease-in-out;
+  z-index: 999;
+  box-shadow: 1px 0px 5px 1px black;
+  height: 100vh;
+  background-color: purple;
 
   .add_task_container {
     width: 100%;
@@ -291,13 +356,13 @@ nav {
         border-radius: 5px;
         border: none;
       }
-     
+
     }
 
     .tast_disc {
       width: 100%;
       margin-top: 10px;
-     
+
 
       textarea {
         width: 100%;
@@ -321,7 +386,14 @@ nav {
         border-radius: 10px;
         border: none;
         border: 2px solid white;
+        opacity: 1;
+        transition: all 0.1s ease-in-out;
 
+        &:hover {
+          background-color: rgba(128, 0, 128, 0.315);
+          box-shadow: 0px 0px 2px 1px white;
+          opacity: 0.8;
+        }
       }
     }
   }
@@ -329,17 +401,22 @@ nav {
 
 .user_task {
   width: 100%;
-  margin-top: 40px;
+  margin-top: 140px;
   padding: 0px 10px;
- 
+  transition: all 0.3s ease-in-out;
+  height: 70vh;
+  overflow: hidden;
+  overflow-y: auto;
+  padding-bottom: 50px;
 
 }
-.response_user_task{
+
+.response_user_task {
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(450px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
   column-gap: 30px;
   row-gap: 20px;
-  
+
 }
 
 .task {
@@ -348,6 +425,7 @@ nav {
   display: flex;
   align-items: center;
   border-radius: 50px;
+  transition: all .2s ease-in-out;
 
   .task_image {
     background-color: white;
@@ -360,14 +438,15 @@ nav {
     cursor: pointer;
     transition: all 1s;
     padding-top: 0;
-    
+
     img {
       width: 100%;
       height: 100%;
       border-radius: 100%;
       object-fit: cover;
     }
-    p{
+
+    p {
       border: 2px solid purple;
       font-size: 50px;
       font-weight: 600;
@@ -391,25 +470,75 @@ nav {
     overflow-y: hidden;
     transition: all 2s;
     display: flex;
+    transform: scale(1);
+    transition: all .3s ease-in-out;
 
   }
-  .task_con_height{
-    height: 90px;
+
+  .task_con:hover {
+    transform: scale(1.05);
   }
+
 
   .task_detail {
     width: 100%;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    height: auto;
+
 
     .task_name {
       margin-top: 10px;
       font-size: 18px;
-      font-weight: 600;
+      font-weight: 500;
+      font-weight: bold;
+      color: purple;
+    }
+
+    .task_name::first-letter {
+      text-transform: capitalize;
     }
 
     .tast_dis {
       margin-top: 3px;
       margin-left: 8px;
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: gray;
+      cursor: pointer;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      overflow-y: hidden;
+    }
+
+    .tast_dis p {
+      line-height: 17px;
+      height: 100%;
+    }
+
+    .tast_dis p::first-letter {
+      text-transform: capitalize;
+    }
+
+    .tast_dis:hover {
+      color: rgba(128, 0, 128, 0.616);
+      transition: all .3s ease-in-out;
+      opacity: .8;
+    }
+  }
+
+  @keyframes task_detail_anim {
+    0% {
+      width: 0%;
+    }
+
+    50% {
+      width: 100%;
+    }
+
+    100% {
+      width: 0%;
     }
   }
 
@@ -435,36 +564,77 @@ nav {
 }
 
 .tak {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .rotated {
   transform: rotate(360deg);
 }
-#task_id{
-animation: taskIdAnim 1s infinite ease-in-out;
+
+#task_id {
+  animation: taskIdAnim 1s infinite ease-in-out;
 }
 
 @keyframes taskIdAnim {
-  0%{
+  0% {
     color: purple;
   }
-  50%{
+
+  50% {
     color: white;
   }
-  100%{
+
+  100% {
     color: purple;
   }
 }
 
 @keyframes taskIdAnim {
-  0%{
+  0% {
     color: purple;
   }
-  50%{
+
+  50% {
     color: white;
   }
-  100%{
+
+  100% {
     color: purple;
   }
+}
+
+
+@media screen and (max-width:1320px) {
+  .user_auth_form form {
+    width: 30%;
+  }
+
+}
+
+@media screen and (max-width:1180px) {
+  .user_auth_form form {
+    width: 40%;
+  }
+
+}
+
+@media screen and (max-width:890px) {
+  .user_auth_form form {
+    width: 50%;
+  }
+
+}
+
+@media screen and (max-width:720px) {
+  .user_auth_form form {
+    width: 60%;
+  }
+
+}
+
+@media screen and (max-width:600px) {
+  .user_auth_form form {
+    width: 80%;
+  }
+
 }

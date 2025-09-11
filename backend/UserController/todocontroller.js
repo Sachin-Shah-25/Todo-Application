@@ -20,7 +20,6 @@ const addTodoFun = async (req, res) => {
 
         return res.status(200).json({ success: true, message: "Add Successfully ", data: isTodoAdded, userTask: getTodoOfUser });
     } catch (error) {
-        console.error("Can't Add : ", error.message);
         return res.status(503).json({ success: false, message: "Can't Add" });
     }
 
@@ -42,7 +41,6 @@ const updateTodoFun = async (req, res) => {
         return res.status(200).json({ success: true, message: "Todo Updated ", data: findTodo, userTask: getTodoOfUser });
 
     } catch (error) {
-        console.error("Can't Updated : ", error.message);
         return res.status(503).json({ success: false, message: "Can't Updated " });
     }
 }
@@ -71,7 +69,6 @@ const deleteTodoFun = async (req, res) => {
 
 
     } catch (error) {
-        console.error("Can't Delete : ", error.message);
         return res.status(503).json({ success: false, message: error.message });
     }
 }

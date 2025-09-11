@@ -1,8 +1,8 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { BASE_URL } from "../../config";
 import { toast } from "react-toastify";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 export const AppComp = createContext();
 export const ContextProvider = (props) => {
@@ -10,15 +10,16 @@ export const ContextProvider = (props) => {
     const [showUpdateBox, hideUpdateBox] = useState({
         isTask: false,
         updateValue: "",
-        taskId: null
+        taskId: null,
+        task: null
     });
-    const [getUser,setUser]=useState({});
+    const [getUser, setUser] = useState(null);
 
 
     const addTaskFun = async (newTask) => {
 
         try {
-            const { data } = await axios.post(`${BASE_URL}/todo/addtodo`, newTask);
+            const { data } = await axios.post(`${BASE_URL}/todo/addtodo`, newTask, { withCredentials: true });
 
             if (!data || !data.message) {
                 toast.error(data.message || "Not Added ");
@@ -28,8 +29,7 @@ export const ContextProvider = (props) => {
             setAllTask(data.userTask.todocreateby || []);
 
         } catch (error) {
-            toast.error("Todo Not Added ");
-            console.error("Not Added : ", error.message);
+            errFun(error)
 
         }
 
@@ -46,8 +46,8 @@ export const ContextProvider = (props) => {
             }
             const { data } = await axios.delete(`${BASE_URL}/todo/deletetodo/${id}`, {
                 headers: {
-                    Authorization:`Bearer ${getToken}` 
-                }
+                    Authorization: `Bearer ${getToken}`
+                }, withCredentials: true
             });
 
             if (!data || !data.success) {
@@ -58,8 +58,7 @@ export const ContextProvider = (props) => {
             setAllTask(data.userTask.todocreateby || []);
 
         } catch (error) {
-            console.error("Can't Delete : ", error.message);
-            toast.error("Can't Delete ");
+            errFun(error)
         }
     }
 
@@ -74,10 +73,10 @@ export const ContextProvider = (props) => {
             }
             const getTodoId = showUpdateBox.taskId;
 
-            const { data } = await axios.put(`${BASE_URL}/todo/updatetodo/${getTodoId}`, { title, dis},{
-                headers:{
-                    Authorization:`Bearer ${getToken}`
-                }
+            const { data } = await axios.put(`${BASE_URL}/todo/updatetodo/${getTodoId}`, { title, dis }, {
+                headers: {
+                    Authorization: `Bearer ${getToken}`
+                }, withCredentials: true
             });
 
             if (!data || !data.success) {
@@ -91,8 +90,7 @@ export const ContextProvider = (props) => {
             });
 
         } catch (error) {
-            toast.error("Can't Upaded ");
-            console.error("Error : ", error.message);
+            errFun(error)
         }
 
     }
@@ -101,34 +99,66 @@ export const ContextProvider = (props) => {
         try {
             const getToken = localStorage.getItem("token");
             if (!getToken) {
-                toast.error("!Please Login Again ");
+                toast.error("Login Again ");
                 return;
             }
-            const { data } = await axios.get(`${BASE_URL}/`,{
-                headers:{
-                    Authorization:`Bearer ${getToken}`
-                }
+            const data = await axios.get(`http://localhost:5000`, {
+                headers: {
+                    Authorization: `Bearer ${getToken}`
+                }, withCredentials: true
             });
-            if (!data || !data.success) {
+            if (data.status != 200) {
                 toast.error(data.message || "Not Found");
                 return;
             }
-            setUser(data.userTask);
-            setAllTask(data.userTask.todocreateby || []);
+            setUser(data.data.userTask);
+            setAllTask(data.data.userTask.todocreateby || []);
 
 
         } catch (error) {
-            console.error("Not Found : ", error.message);
-            toast.error("An Error Found when we fetching tasks.");
+
+            errFun(error)
         }
     }
+
+
+    const getUserFun = async () => {
+        try {
+            const data = await axios.get("http://localhost:5000/user", { withCredentials: true })
+            setUser(data.data.data)
+        } catch (error) {
+            errFun(error)
+        }
+    }
+
+    function errFun(err) {
+        if (err.status == 404) {
+            toast.error(err.response.data.message)
+        }
+        else if (err.status == 409) {
+
+            toast.error(err.response.data.message)
+        }
+        else if (err.status == 401) {
+            toast.error(err.response.data.message)
+
+        }
+        else if (err.status == 503) {
+            toast.error(err.response.data.message)
+        }
+        else {
+            toast.error("An Error When Fechting Detials");
+            console.error("An Error When Fechting Detials : ", err.message);
+
+        }
+    }
+
     useEffect(() => {
-
-        findAllTask();
-
+        
+            findAllTask();
     }, []);
 
-    return <AppComp.Provider value={{ setAllTask, getAllTask, addTaskFun, removeTask, updateTaskFun, showUpdateBox, hideUpdateBox,findAllTask,setUser,getUser }} >
+    return <AppComp.Provider value={{ errFun, setAllTask, getAllTask, addTaskFun, removeTask, updateTaskFun, showUpdateBox, hideUpdateBox, findAllTask, setUser, getUser, getUserFun }} >
         {props.children}
     </AppComp.Provider>
 }

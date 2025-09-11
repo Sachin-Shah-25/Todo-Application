@@ -4,8 +4,6 @@ const userrouter=express.Router();
 
 
 
-
-
 userrouter.post("/createuser",createUserFun);
 userrouter.post("/loginuser",loginUserFun);
 
