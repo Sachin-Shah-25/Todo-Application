@@ -41,34 +41,36 @@ Delete todo → Smoothly removed from the list
 📸 Screenshots
 ![All Todos](./images/To4.JPG)
 
-[!Add](./images/To2.JPG)
+![!Add Todo](./images/To2.JPG)
 
-[!Update](./images/To3.JPG)
+![!Update Todo](./images/To3.JPG)
 
-[!Full View](./images/To5.JPG)
+![!Full View](./images/To5.JPG)
 
-[!Auth](./images/To6.JPG)
+![!Login Signup](./images/To6.JPG)
 
 
 📦 Installation
 # Clone the repo
 git clone https://github.com/Sachin-Shah-25/Todo-Application.git
 
+
 # Move into folder
 cd animated-todo-app
 
+
 # Install dependencies
 npm install
+
 
 # Run development server
 npm start
 
 
-
-✨ Future Enhancements
-Dark Mode 🌙
-Add Time For Todo
-Drag-and-drop reordering 🔄
-Profile & user settings 👤
-Todo categories & filters 🏷️
+# ✨ Future Enhancements
+- Dark Mode 🌙  
+- Add Time For Todo  
+- Drag-and-drop reordering 🔄  
+- Profile & user settings 👤  
+- Todo categories & filters 🏷️  
 
