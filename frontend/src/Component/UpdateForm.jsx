@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AppComp } from '../AppComponent/AppComp'
+import { FaChevronDown } from "react-icons/fa";
 
 function UpdateForm() {
-  const { showUpdateBox, removeTask, updateTaskFun } = useContext(AppComp)
+  const { showUpdateBox, removeTask,hideUpdateBox, updateTaskFun } = useContext(AppComp)
   const [getUpdateTitle, setUpdateTitle] = useState("");
   const [getUpdateDis, setUpdateDis] = useState("");
 
@@ -17,9 +18,10 @@ function UpdateForm() {
 
   return (
     <div className="bottom_container" style={{
-      bottom: showUpdateBox.isTask ? "0px" : "-300px",
+      bottom: showUpdateBox.isTask ? "0px" : "-400px",
 
     }}>
+      <div className="go_down" onClick={()=>hideUpdateBox(false)} ><div className="go_down_btn"><FaChevronDown/></div> </div>
       <div className="update_task">
         <div className="update_title">
           <span>Update Title</span>

@@ -10,7 +10,7 @@ import AuthForm from './Component/AuthForm';
 import axios from 'axios';
 
 function App() {
-  const { getAllTask,removeTask,getUser, setUser,getUserFun} = useContext(AppComp);
+  const { getAllTask, removeTask, getUser, setUser, getUserFun } = useContext(AppComp);
   const [showField, hideField] = useState(false);
   const [view, hide] = useState(false)
   const [showform, hideform] = useState(false);
@@ -21,8 +21,8 @@ function App() {
     if (e.target.id === "username") {
       hideField(true)
       const toast_loader = toast.loading("....")
-      setTimeout(async() => {
-        const data=await axios.get("http://localhost:5000/logout",{withCredentials:true})
+      setTimeout(async () => {
+        const data = await axios.get("http://localhost:5000/logout", { withCredentials: true })
         toast.dismiss(toast_loader)
         localStorage.clear()
         setUser(null)
@@ -52,7 +52,7 @@ function App() {
             <div className="user_image" onClick={() => { hideField(e => !e) }} >
               <img src="/img/user1.png" alt="" />
               <div style={{ width: "80px", textAlign: "center" }}>
-                <span id='username' onClick={(e) => logoutFun(e)} style={{ color: "white", width: "100%", fontWeight: "bold", display: 'inline-block' }} >{getUser?.username}</span>
+                <span id='username' onClick={(e) => logoutFun(e)}  >{getUser?.username}</span>
 
               </div>
 
@@ -71,29 +71,12 @@ function App() {
                   overflowY: "hidden",
                   height: "15px"
 
-                }} >{getAllTask[0]?.dis.substring(0, 150)}...
+                }}  >{getAllTask[0]?.dis.substring(0, 150)}...
 
                 </p>
                 <p id='viewTodo' style={{
-                  position: "absolute",
                   top: view ? "80px" : "-800px",
-                  left: "10px",
-                  width: "90%",
-                  borderRadius: "6px",
-                  padding: "8px 15px",
-                  zIndex: "999",
-                  transition: "all 0.3s ease-in-out",
-                  fontSize: "14px",
-                  cursor: "pointer",
-                  lineHeight: "20px",
-                  backdropFilter: "blur(50px)",
-                  border: "1px solid white",
-                  fontWeight: "bold",
-                  color: "white",
-                  backgroundColor: "purple",
-                  fontFamily: "sans-serif"
-
-                }} onClick={() => hide(prev => false)} >{getAllTask[0]?.dis} </p>
+                }} onClick={() => hide(prev => !prev)} >{getAllTask[0]?.dis} </p>
               </div>
             </div>
             <div className="first_task_completed" onClick={() => removeTask(getAllTask[0]?._id)} >
@@ -117,15 +100,15 @@ function App() {
           </div>
         </div>
         <div className="container_right_side" style={{
-          width: showField ? "350px" : "0",
+          width: showField ? "320px" : "0",
           opacity: showField ? "1" : "0"
         }}>
-         
+
           <AddTodoForm hideField={hideField} ></AddTodoForm>
         </div>
       </div>
 
-    
+
       <UpdateForm />
 
 
@@ -136,7 +119,7 @@ function App() {
 
 
       <div className="user_auth_form" style={{ transform: showform ? "scale(1)" : "scale(0)" }} >
-       
+
         <AuthForm hideform={hideform} ></AuthForm>
       </div>
 

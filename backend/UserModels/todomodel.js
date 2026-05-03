@@ -10,7 +10,7 @@ const todoSchema= new mongoose.Schema({
     },
     usId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"users"
+        ref:"usersauth"
     }
 },{timestamps:true});
 
